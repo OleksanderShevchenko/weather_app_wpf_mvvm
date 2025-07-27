@@ -11,12 +11,15 @@ namespace WeatherApp.ViewModel.AccuWeatherHelpers
 {
 	public class AccuWeatherHelper
 	{
-		private string baseURL = "http://dataservice.accuweather.com";
+		private string baseURL = "";
 		private string appKey = "";
-		private string locationURL = "locations/v1/cities/autocomplete?apikey={0}&q={1}";
-		private string curentConditionURL = "currentconditions/v1/{0}?apikey={1}";
+		private string locationURL = "";
+		private string curentConditionURL = "";
 
-		public AccuWeatherHelper(string appKey)
+		public AccuWeatherHelper(string appKey = "", 
+			string baseUrl = "http://dataservice.accuweather.com", 
+			string locationUrl= "locations/v1/cities/autocomplete?apikey={0}&q={1}", 
+			string curentConditionUrl = "currentconditions/v1/{0}?apikey={1}")
 		{
 			this.appKey = appKey;
 		}
