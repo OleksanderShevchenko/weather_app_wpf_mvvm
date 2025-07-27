@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.Model;
 
-namespace weather_app_wpf_mvvm.ViewModel.AccuWeatherHelpers
+namespace WeatherApp.ViewModel.AccuWeatherHelpers
 {
 	public class AccuWeatherHelper
 	{
