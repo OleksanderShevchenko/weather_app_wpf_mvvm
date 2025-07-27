@@ -1,6 +1,0 @@
-{
-  "appKey": "<put your AccuWeather application key here>",
-  "baseURL": "http://dataservice.accuweather.com",
-  "locationURL": "locations/v1/cities/autocomplete?apikey={0}&q={1}",
-  "currentConditionURL":  "currentconditions/v1/{0}?apikey={1}"
-}
