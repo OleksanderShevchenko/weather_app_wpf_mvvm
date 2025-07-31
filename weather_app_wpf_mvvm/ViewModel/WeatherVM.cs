@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using weather_app_wpf_mvvm.Core;
 using weather_app_wpf_mvvm.ViewModel.Commands;
 using WeatherApp.Model;
@@ -41,6 +43,15 @@ namespace weather_app_wpf_mvvm.ViewModel
 				OnPropertyChanged(nameof(WeatherConditions));
 			}
 		}
+
+		private ObservableCollection<City> _cities;
+
+		public ObservableCollection<City> FoundCities
+		{
+			get { return _cities; }
+			set { _cities = value; }
+		}
+
 
 		private City _selectedCity;
 
@@ -86,6 +97,7 @@ namespace weather_app_wpf_mvvm.ViewModel
 			// Initialize the AccuWeatherHelper with the app configuration
 			_helper = new AccuWeatherHelper(_appConfig.AppKey, _appConfig.ApiBaseUrl, _appConfig.LocationUrl, _appConfig.ConditionUrl);
 			_searchCity = new SearchComand(this);
+			FoundCities = new ObservableCollection<City>();
 		}
 
 		public async Task FetchCitiesAsync()
@@ -93,14 +105,16 @@ namespace weather_app_wpf_mvvm.ViewModel
 			// This method can be used to make a query to the weather service.
 			// It can be implemented to fetch list of cities using user input in the text box.
 			var cities = await _helper.GetCities(CityQuery);
+			FoundCities.Clear();
 			foreach (var city in cities) 
 			{
-				;
+				FoundCities.Add(city);
 			}
 		}
 
 
 		public event PropertyChangedEventHandler PropertyChanged;
+	
 		protected void OnPropertyChanged(string propertyName)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
