@@ -71,6 +71,8 @@
                 <TextBlock Text="{Binding Link}"
                             Foreground="MediumBlue"
                             FontSize="16"
+                            TextDecorations="Underline"
+                            TextWrapping="Wrap"
                             Margin="20,0"/>
             </StackPanel>
         </Grid>
