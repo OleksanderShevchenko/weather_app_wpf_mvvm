@@ -22,6 +22,9 @@ namespace WeatherApp.ViewModel.AccuWeatherHelpers
 			string curentConditionUrl = "currentconditions/v1/{0}?apikey={1}")
 		{
 			this.appKey = appKey;
+			baseURL = baseUrl;
+			locationURL = locationUrl;
+			curentConditionURL = curentConditionUrl;
 		}
 
 		public async Task<List<City>> GetCities(string query)
