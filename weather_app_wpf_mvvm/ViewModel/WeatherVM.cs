@@ -62,7 +62,7 @@ namespace weather_app_wpf_mvvm.ViewModel
 						Metric = new UnitValue() { Value = 20, Unit = "C", UnitType = 1 },
 						Imperial = new UnitValue() { Value = 68, Unit = "F", UnitType = 2 }
 					},
-					Link = "https://www.example.com/weather/326310",
+					Link = "http://www.accuweather.com/en/ua/uzhhorod/326310/current-weather/326310?lang=en-us",
 				};
 				SelectedCity = new City()
 				{
