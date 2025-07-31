@@ -24,8 +24,9 @@
             <TextBox Text="{Binding CityQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Margin="0,10"
                 Command="{Binding SearchForCity}"
+                CommandParameter="{Binding CityQuery}"
                 Content="Search"/>
-            <ListView ItemsSource="{Binding Cities}"
+            <ListView ItemsSource="{Binding FoundCities}"
                   SelectedValue="{Binding SelectedCity}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
