@@ -9,6 +9,10 @@
         Title="WeatherWindow" Height="600" Width="400">
     <Window.Resources>
         <vm:WeatherVM x:Key="vm"/>
+        <LinearGradientBrush x:Key="gradBack" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#4392ff" Offset="0.0" />
+            <GradientStop Color="Yellow" Offset="1.0" />
+        </LinearGradientBrush>
     </Window.Resources>
     <Grid DataContext="{StaticResource vm}">
         <Grid.RowDefinitions>
@@ -33,7 +37,7 @@
             </ListView>
         </StackPanel>
         <Grid Grid.Row="1"
-          Background="#4392f1"
+          Background="{StaticResource gradBack}"
               DataContext="{Binding WeatherConditions}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -48,24 +52,24 @@
                 <TextBlock 
                     DataContext="{StaticResource vm}"
                        Text="{Binding SelectedCity.LocalizedName}"
-                       Foreground="#f4f4f8"
-                       FontSize="20"
+                       Foreground="MediumBlue"
+                       FontSize="24"
                        Margin="20,0"/>
                 <TextBlock Text="{Binding WeatherText}"
-                       Foreground="#f4f4f8"
+                       Foreground="MediumBlue"
                        FontSize="18"
                        Margin="20,0"/>
             </StackPanel>
             <StackPanel Margin="0,10" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
                 <TextBlock VerticalAlignment="Center"
                            Text="{Binding Temperature.Metric.Value, StringFormat={}{0}°C}"
-                           Foreground="#f4f4f8"
-                           FontSize="30"
+                           Foreground="MediumBlue"
+                           FontSize="36"
                            Margin="20,0"/>      
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
                 <TextBlock Text="{Binding Link}"
-                            Foreground="#f4f4f8"
+                            Foreground="MediumBlue"
                             FontSize="16"
                             Margin="20,0"/>
             </StackPanel>
