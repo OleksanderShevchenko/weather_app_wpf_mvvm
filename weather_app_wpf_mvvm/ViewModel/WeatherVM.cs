@@ -4,23 +4,28 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using weather_app_wpf_mvvm.Core;
+using weather_app_wpf_mvvm.ViewModel.Commands;
 using WeatherApp.Model;
+using WeatherApp.ViewModel.AccuWeatherHelpers;
 
 namespace weather_app_wpf_mvvm.ViewModel
 {
     public class WeatherVM: INotifyPropertyChanged
     {
-		private string _city;
+		private string _cityQuery;
+		private AppConfig _appConfig = AppConfig.Instance;
+		private AccuWeatherHelper _helper;
 
-		public string City
+		public string CityQuery
 		{
-			get { return _city; }
+			get { return _cityQuery; }
 			set
 			{
-				if (_city != value)
+				if (_cityQuery != value)
 				{
-					_city = value;
-					OnPropertyChanged(nameof(City));
+					_cityQuery = value;
+					OnPropertyChanged(nameof(CityQuery));
 				}
 			}
 		}
@@ -49,6 +54,15 @@ namespace weather_app_wpf_mvvm.ViewModel
 			}
 		}
 
+		private SearchComand _searchCity;
+
+		public SearchComand SearchForCity
+		{
+			get { return _searchCity; }
+			set { _searchCity = value; }
+		}
+
+
 		public WeatherVM()
 		{
 			if(DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
@@ -69,7 +83,23 @@ namespace weather_app_wpf_mvvm.ViewModel
 					LocalizedName = "Uzhgorod"
 				};
 			}
+			// Initialize the AccuWeatherHelper with the app configuration
+			_helper = new AccuWeatherHelper(_appConfig.AppKey, _appConfig.ApiBaseUrl, _appConfig.LocationUrl, _appConfig.ConditionUrl);
+			_searchCity = new SearchComand(this);
 		}
+
+		public async Task FetchCitiesAsync()
+		{
+			// This method can be used to make a query to the weather service.
+			// It can be implemented to fetch list of cities using user input in the text box.
+			var cities = await _helper.GetCities(CityQuery);
+			foreach (var city in cities) 
+			{
+				;
+			}
+		}
+
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		protected void OnPropertyChanged(string propertyName)
 		{
