@@ -64,10 +64,10 @@ namespace weather_app_wpf_mvvm.Core
 				var configData = JsonSerializer.Deserialize<AppSettingsData>(jsonContent);
 
 				// Assign the values to the public properties.
-				AppKey = configData?.AppKey;
-				ApiBaseUrl = configData?.ApiBaseUrl;
-				LocationUrl = configData?.ApiLocationURL;
-				ConditionUrl = configData?.ApiCurrentConditionURL;
+				AppKey = configData?.appKey;
+				ApiBaseUrl = configData?.baseURL;
+				LocationUrl = configData?.locationURL;
+				ConditionUrl = configData?.currentConditionURL;
 
 				// Validate that essential settings were loaded.
 				if (string.IsNullOrEmpty(AppKey))
@@ -89,10 +89,10 @@ namespace weather_app_wpf_mvvm.Core
 		/// </summary>
 		private class AppSettingsData
 		{
-			public string AppKey { get; set; }
-			public string ApiBaseUrl { get; set; }
-			public string ApiLocationURL { get; set; }
-			public string ApiCurrentConditionURL { get; set; }
+			public string appKey { get; set; }
+			public string baseURL { get; set; }
+			public string locationURL { get; set; }
+			public string currentConditionURL { get; set; }
 		}
 	}
 }
