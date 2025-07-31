@@ -49,7 +49,27 @@ namespace weather_app_wpf_mvvm.ViewModel
 			}
 		}
 
-
+		public WeatherVM()
+		{
+			if(DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+			{
+				// Initialize properties if necessary
+				WeatherConditions = new WeatherCondition()
+				{
+					WeatherText = "Partially cloudy",
+					Temperature = new Temperature()
+					{
+						Metric = new UnitValue() { Value = 20, Unit = "C", UnitType = 1 },
+						Imperial = new UnitValue() { Value = 68, Unit = "F", UnitType = 2 }
+					},
+					Link = "https://www.example.com/weather/12345",
+				};
+				SelectedCity = new City()
+				{
+					LocalizedName = "Uzhgorod"
+				};
+			}
+		}
 		public event PropertyChangedEventHandler PropertyChanged;
 		protected void OnPropertyChanged(string propertyName)
 		{
