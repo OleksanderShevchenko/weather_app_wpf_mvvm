@@ -2,6 +2,8 @@
 using System.IO;
 using System.Text.Json;
 using System.Reflection;
+using System.ComponentModel;
+using System.Windows;
 
 namespace weather_app_wpf_mvvm.Core
 {
@@ -46,6 +48,17 @@ namespace weather_app_wpf_mvvm.Core
 		/// </summary>
 		private AppConfig()
 		{
+
+			if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+			{
+				// Provide mock config for designer
+				AppKey = "fake_key";
+				ApiBaseUrl = "http://dataservice.accuweather.com";
+				LocationUrl = "locations/v1/cities/autocomplete?apikey={0}&q={1}";
+				ConditionUrl = "currentconditions/v1/{0}?apikey={1}";
+				return;
+			}
+
 			try
 			{
 				// Determine the path of the executable.
