@@ -21,5 +21,11 @@ namespace WeatherApp.Model
 		public string LocalizedName { get; set; }
 		public LocalizationArea Country { get; set; }
 		public LocalizationArea AdministrativeArea { get; set; }
+		public string FullName 
+		{ get 
+			{
+				return $"{LocalizedName} ({AdministrativeArea.LocalizedName} - {Country.LocalizedName})";
+			}
+		}
 	}
 }
