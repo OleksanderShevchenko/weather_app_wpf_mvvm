@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:weather_app_wpf_mvvm.View"
         xmlns:vm="clr-namespace:weather_app_wpf_mvvm.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:convertor="clr-namespace:weather_app_wpf_mvvm.ViewModel.ValueConverters"
         mc:Ignorable="d"
-        Title="WeatherWindow" Height="600" Width="400">
+        Title="WeatherWindow" Height="600" Width="750">
     <Window.Resources>
         <vm:WeatherVM x:Key="vm"/>
         <convertor:BoolToRainConvertor x:Key="boolToRain"/>
@@ -63,7 +64,8 @@
                        FontSize="18"
                        TextWrapping="Wrap"
                        Margin="20,0"/>
-                <TextBlock Text="{Binding HasPrecipitation, Converter={StaticResource boolToRain}}" 
+                <TextBlock Text="{Binding HasPrecipitation, 
+                    Converter={StaticResource boolToRain}}" 
                         Foreground="MediumBlue"
                         FontSize="18"
                         TextWrapping="Wrap"
@@ -82,9 +84,16 @@
                             TextWrapping="Wrap"
                             Margin="10,0">
                     For more info go to
-                    <Hyperlink NavigateUri="{Binding Link}" 
-                               RequestNavigate="Hyperlink_RequestNavigate">
-                               Link
+                    <Hyperlink 
+                        DataContext="{StaticResource vm}"
+                        NavigateUri="{Binding WeatherConditions.Link}">
+                        <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding OpenUrlCommand}" 
+                                                           CommandParameter="{Binding WeatherConditions.Link}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        Link
                     </Hyperlink>
                 </TextBlock>
 
