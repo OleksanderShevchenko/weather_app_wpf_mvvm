@@ -36,6 +36,10 @@ namespace weather_app_wpf_mvvm.ViewModel
 
 		private async void getCurrentCondition()
 		{
+			if(SelectedCity == null || string.IsNullOrEmpty(SelectedCity.Key))
+			{
+				return; // No city selected or key is empty
+			}
 			WeatherConditions = await _helper.GetWeatherCondition(SelectedCity.Key);
 			// clear after we've got new current weather conditions
 			CityQuery = string.Empty;
