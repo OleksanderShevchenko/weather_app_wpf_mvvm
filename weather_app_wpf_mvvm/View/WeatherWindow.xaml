@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:weather_app_wpf_mvvm.View"
         xmlns:vm="clr-namespace:weather_app_wpf_mvvm.ViewModel"
+        xmlns:convertor="clr-namespace:weather_app_wpf_mvvm.ViewModel.ValueConverters"
         mc:Ignorable="d"
         Title="WeatherWindow" Height="600" Width="400">
     <Window.Resources>
         <vm:WeatherVM x:Key="vm"/>
+        <convertor:BoolToRainConvertor x:Key="boolToRain"/>
         <LinearGradientBrush x:Key="gradBack" StartPoint="0.5,0" EndPoint="0.5,1">
             <GradientStop Color="#4392ff" Offset="0.0" />
             <GradientStop Color="Yellow" Offset="1.0" />
@@ -61,6 +63,11 @@
                        FontSize="18"
                        TextWrapping="Wrap"
                        Margin="20,0"/>
+                <TextBlock Text="{Binding HasPrecipitation, Converter={StaticResource boolToRain}}" 
+                        Foreground="MediumBlue"
+                        FontSize="18"
+                        TextWrapping="Wrap"
+                        Margin="20,0"/>
             </StackPanel>
             <StackPanel Margin="0,10" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
                 <TextBlock VerticalAlignment="Center"
@@ -72,7 +79,6 @@
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
                 <TextBlock  Foreground="MediumBlue"
                             FontSize="16"
-                            TextDecorations="Underline"
                             TextWrapping="Wrap"
                             Margin="10,0">
                     For more info go to
