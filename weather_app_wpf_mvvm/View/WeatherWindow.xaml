@@ -70,12 +70,18 @@
                            Margin="20,0"/>      
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2">
-                <TextBlock Text="{Binding Link}"
-                            Foreground="MediumBlue"
+                <TextBlock  Foreground="MediumBlue"
                             FontSize="16"
                             TextDecorations="Underline"
                             TextWrapping="Wrap"
-                            Margin="20,0"/>
+                            Margin="10,0">
+                    For more info go to
+                    <Hyperlink NavigateUri="{Binding Link}" 
+                               RequestNavigate="Hyperlink_RequestNavigate">
+                               Link
+                    </Hyperlink>
+                </TextBlock>
+
             </StackPanel>
         </Grid>
     </Grid>

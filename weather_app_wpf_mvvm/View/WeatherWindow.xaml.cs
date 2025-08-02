@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,5 +24,20 @@ namespace weather_app_wpf_mvvm.View
 		{
 			InitializeComponent();
 		}
-	}
+
+		private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+		{
+			var psi = new ProcessStartInfo
+			{
+				FileName = e.Uri.AbsoluteUri, // Беремо URL з самого гіперпосилання
+				UseShellExecute = true        // Використовуємо системну оболонку для відкриття (тобто браузер)
+			};
+
+			// Запускаємо процес
+			Process.Start(psi);
+
+			// Позначаємо подію як оброблену
+			e.Handled = true;
+		}
+    }
 }
