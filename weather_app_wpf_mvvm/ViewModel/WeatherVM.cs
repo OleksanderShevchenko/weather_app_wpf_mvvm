@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Reflection.Metadata;
+using System.Windows.Input;
 using weather_app_wpf_mvvm.Core;
 using weather_app_wpf_mvvm.ViewModel.Commands;
 using WeatherApp.Model;
@@ -78,8 +80,23 @@ namespace weather_app_wpf_mvvm.ViewModel
 			set { _searchCity = value; }
 		}
 
+		private OpenURL _openUrlCommand;
+
+		public OpenURL OpenUrlCommand 
+		{
+			get { return _openUrlCommand; }
+			set { _openUrlCommand = value; }
+
+		}
+
 		public WeatherVM()
 		{
+			// Initialize the AccuWeatherHelper with the app configuration
+			var _appConfig = AppConfig.Instance;
+			_helper = new AccuWeatherHelper(_appConfig.AppKey, _appConfig.ApiBaseUrl, _appConfig.LocationUrl, _appConfig.ConditionUrl);
+			SearchForCity = new SearchComand(this);
+			OpenUrlCommand = new OpenURL(this);
+			FoundCities = new ObservableCollection<City>();
 			if (DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
 			{
 				// Initialize properties for design mode
@@ -97,22 +114,13 @@ namespace weather_app_wpf_mvvm.ViewModel
 				{
 					LocalizedName = "Uzhgorod"
 				};
-				FoundCities = new ObservableCollection<City>
-				{
-					SelectedCity,
-					new City { LocalizedName = "Mykolaiv" }
-				};
+				FoundCities.Add(SelectedCity);
 			}
 			else
 			{
 				CityQuery = "";
-				// Initialize the AccuWeatherHelper with the app configuration
-				var _appConfig = AppConfig.Instance;
-				FoundCities = new ObservableCollection<City>();
-				_helper = new AccuWeatherHelper(_appConfig.AppKey, _appConfig.ApiBaseUrl, _appConfig.LocationUrl, _appConfig.ConditionUrl);
-				SearchForCity = new SearchComand(this);
 			}
-
+			
 		}
 
 		public async void FetchCitiesAsync()
@@ -126,6 +134,21 @@ namespace weather_app_wpf_mvvm.ViewModel
 				_cities.Add(city);
 			}
 		}
+
+		public void OpenURL()
+		{
+			var parameter = WeatherConditions?.Link;
+			if (parameter is string url && !string.IsNullOrWhiteSpace(url))
+			{
+				var psi = new System.Diagnostics.ProcessStartInfo
+				{
+					FileName = url,
+					UseShellExecute = true
+				};
+				System.Diagnostics.Process.Start(psi);
+			}
+		}
+
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
